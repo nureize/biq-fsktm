@@ -1,1 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIQ 2026 — Bachelor of Applied AI (Hons) | UTHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f1117;
+    --mid: #3d4459;
+    --muted: #8892a4;
+    --rule: #e2e6ed;
+    --bg: #f7f8fa;
+    --white: #ffffff;
+    --accent: #1a3cff;
+    --accent2: #00c2a8;
+    --tag-bg: #eef1ff;
+    --tag-txt: #2d4ff5;
+    --core-bg: #e8f9f5;
+    --core-txt: #0a7a64;
+    --disc-bg: #fff5e6;
+    --disc-txt: #b85a00;
+    --univ-bg: #f0f0ff;
+    --univ-txt: #4040cc;
+  }
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247,248,250,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+    display: flex; align-items: center; gap: 2rem;
+    height: 56px;
+  }
+  .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: var(--accent); text-decoration: none; white-space: nowrap; }
+  .nav-links { display: flex; gap: 0.25rem; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    white-space: nowrap; font-size: 0.82rem; font-weight: 500;
+    color: var(--mid); text-decoration: none;
+    padding: 0.35rem 0.75rem; border-radius: 20px;
+    transition: background .18s, color .18s;
+  }
+  .nav-links a:hover { background: var(--tag-bg); color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0f1117 0%, #1a2250 55%, #0d3d6e 100%);
+    color: white;
+    padding: 5rem 2rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(0,194,168,.18) 0%, transparent 65%),
+                radial-gradient(ellipse at 20% 80%, rgba(26,60,255,.2) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 860px; margin: 0 auto; position: relative; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px; padding: 0.3rem 0.9rem;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: .04em;
+    color: rgba(255,255,255,.85); margin-bottom: 1.5rem;
+  }
+  .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); display: inline-block; }
+  h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.15; letter-spacing: -.02em;
+    margin-bottom: 1rem;
+  }
+  .hero-sub {
+    font-size: 1.05rem; color: rgba(255,255,255,.72); max-width: 560px;
+    font-weight: 300; margin-bottom: 2.5rem;
+  }
+  .hero-stats {
+    display: flex; flex-wrap: wrap; gap: 2rem;
+  }
+  .stat { display: flex; flex-direction: column; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 700; color: white; line-height: 1; }
+  .stat-lbl { font-size: 0.75rem; color: rgba(255,255,255,.55); margin-top: .2rem; letter-spacing: .04em; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+  section { padding: 3.5rem 0; }
+  section + section { border-top: 1px solid var(--rule); }
+
+  .section-label {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: .1em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 0.6rem;
+  }
+  h2 {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 1.6rem; color: var(--ink);
+    margin-bottom: 1.6rem; letter-spacing: -.02em;
+  }
+  p { color: var(--mid); margin-bottom: 1rem; }
+
+  /* ── DETAILS GRID ── */
+  .details-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem; margin-top: 1.2rem;
+  }
+  .detail-card {
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 12px; padding: 1.2rem 1.4rem;
+  }
+  .detail-card dt { font-size: 0.72rem; font-weight: 600; color: var(--muted); letter-spacing: .07em; text-transform: uppercase; margin-bottom: 0.35rem; }
+  .detail-card dd { font-size: 0.93rem; color: var(--ink); font-weight: 500; }
+
+  /* ── TABS ── */
+  .tabs { display: flex; gap: 0.25rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .tab-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+    padding: 0.45rem 1rem; border: 1px solid var(--rule); background: var(--white);
+    border-radius: 20px; cursor: pointer; color: var(--mid);
+    transition: all .18s;
+  }
+  .tab-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
+  .tab-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* ── PEO CARDS ── */
+  .peo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+  .peo-card {
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 12px; padding: 1.4rem; position: relative;
+  }
+  .peo-num {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.2rem;
+    color: var(--rule); position: absolute; top: 1rem; right: 1.2rem;
+    line-height: 1;
+  }
+  .peo-title { font-weight: 600; color: var(--ink); font-size: 0.88rem; margin-bottom: 0.5rem; }
+  .peo-desc { font-size: 0.83rem; color: var(--mid); line-height: 1.5; }
+
+  /* ── PLO LIST ── */
+  .plo-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .plo-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 0.9rem 1.1rem;
+  }
+  .plo-num {
+    min-width: 30px; height: 30px; border-radius: 6px;
+    background: var(--tag-bg); color: var(--accent);
+    font-size: 0.75rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .plo-text { font-size: 0.87rem; color: var(--mid); flex: 1; }
+  .plo-mqf { font-size: 0.72rem; font-weight: 600; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+
+  /* ── STUDY PLAN ── */
+  .year-block { margin-bottom: 2rem; }
+  .year-header {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.95rem; color: var(--ink);
+    display: flex; align-items: center; gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  .year-header .yr-badge {
+    background: var(--ink); color: white;
+    font-size: 0.72rem; padding: 0.2rem 0.65rem;
+    border-radius: 20px; font-weight: 600;
+  }
+  .sem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 640px) { .sem-grid { grid-template-columns: 1fr; } }
+  .sem-block {
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 12px; overflow: hidden;
+  }
+  .sem-head {
+    background: var(--bg); padding: 0.65rem 1rem;
+    font-size: 0.75rem; font-weight: 600; color: var(--mid);
+    letter-spacing: .06em; text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    display: flex; justify-content: space-between;
+  }
+  .sem-head .cr { color: var(--accent); }
+  .course-row {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    padding: 0.6rem 1rem; border-bottom: 1px solid var(--rule);
+    transition: background .15s;
+  }
+  .course-row:last-child { border-bottom: none; }
+  .course-row:hover { background: var(--bg); }
+  .course-code { font-size: 0.72rem; font-weight: 600; color: var(--muted); min-width: 80px; padding-top: 2px; }
+  .course-name { font-size: 0.83rem; color: var(--ink); flex: 1; }
+  .course-cr { font-size: 0.78rem; font-weight: 600; color: var(--accent); min-width: 18px; text-align: right; }
+
+  /* type badges */
+  .type-tag {
+    display: inline-block; font-size: 0.68rem; font-weight: 600;
+    padding: 0.15rem 0.5rem; border-radius: 4px; margin-right: 0.3rem;
+  }
+  .tag-univ { background: var(--univ-bg); color: var(--univ-txt); }
+  .tag-core { background: var(--core-bg); color: var(--core-txt); }
+  .tag-disc { background: var(--disc-bg); color: var(--disc-txt); }
+  .tag-elec { background: var(--tag-bg); color: var(--tag-txt); }
+
+  /* ── COURSE LIST TABLE ── */
+  .course-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--rule); }
+  table { width: 100%; border-collapse: collapse; background: var(--white); font-size: 0.83rem; }
+  th { background: var(--bg); font-size: 0.72rem; font-weight: 600; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; padding: 0.7rem 1rem; text-align: left; border-bottom: 1px solid var(--rule); }
+  td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--rule); color: var(--mid); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg); }
+  td:first-child { color: var(--muted); font-size: 0.75rem; }
+  .cr-cell { font-weight: 600; color: var(--accent); }
+
+  /* ── ELECTIVES ── */
+  .elective-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.8rem; margin-top: 1rem; }
+  .elective-card {
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 1rem 1.1rem;
+    display: flex; gap: 0.8rem; align-items: flex-start;
+    transition: border-color .18s, box-shadow .18s;
+  }
+  .elective-card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(26,60,255,.08); }
+  .elec-icon { font-size: 1.3rem; margin-top: 1px; }
+  .elec-code { font-size: 0.7rem; font-weight: 600; color: var(--muted); }
+  .elec-name { font-size: 0.86rem; color: var(--ink); font-weight: 500; margin-top: 0.15rem; }
+
+  /* ── SUMMARY ── */
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.8rem; }
+  .summary-card {
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 1.1rem 1.2rem; text-align: center;
+  }
+  .summary-card .s-num { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.7rem; color: var(--ink); }
+  .summary-card .s-pct { font-size: 0.78rem; color: var(--accent); font-weight: 600; }
+  .summary-card .s-lbl { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* ── ENTRY REQUIREMENTS ── */
+  .entry-list { display: flex; flex-direction: column; gap: 0.7rem; }
+  .entry-item {
+    display: flex; gap: 1rem;
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 0.9rem 1.1rem;
+  }
+  .entry-roman { font-family: 'Syne', sans-serif; font-weight: 700; min-width: 26px; color: var(--accent); font-size: 0.85rem; }
+  .entry-text { font-size: 0.86rem; color: var(--mid); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,.5);
+    text-align: center; padding: 2rem;
+    font-size: 0.78rem;
+  }
+  footer strong { color: rgba(255,255,255,.8); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">BIQ 2026</a>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#peo">Objectives</a>
+    <a href="#plo">Outcomes</a>
+    <a href="#studyplan">Study Plan</a>
+    <a href="#electives">Electives</a>
+    <a href="#courses">Courses</a>
+    <a href="#entry">Entry</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span></span> UTHM · Faculty of Computer Science &amp; IT</div>
+    <h1>Bachelor of Applied<br>Artificial Intelligence<br>with Honours</h1>
+    <p class="hero-sub">A full-time, 3½-year programme preparing graduates to build and deploy AI solutions across real-world domains.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">120</span><span class="stat-lbl">Total Credits</span></div>
+      <div class="stat"><span class="stat-num">7</span><span class="stat-lbl">Semesters</span></div>
+      <div class="stat"><span class="stat-num">43</span><span class="stat-lbl">Courses</span></div>
+      <div class="stat"><span class="stat-num">8</span><span class="stat-lbl">Elective Options</span></div>
+      <div class="stat"><span class="stat-num">611</span><span class="stat-lbl">NEC Code</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="container">
+    <div class="section-label">Programme details</div>
+    <h2>Overview</h2>
+    <div class="details-grid">
+      <dl class="detail-card"><dt>Programme</dt><dd>Bachelor of Applied Artificial Intelligence with Honours</dd></dl>
+      <dl class="detail-card"><dt>Mode of Study</dt><dd>Coursework — Full Time</dd></dl>
+      <dl class="detail-card"><dt>Duration</dt><dd>3 years 6 months (7 semesters) — max 5 years 6 months</dd></dl>
+      <dl class="detail-card"><dt>Total Credits</dt><dd>120</dd></dl>
+      <dl class="detail-card"><dt>NEC Code</dt><dd>611 — Applied Artificial Intelligence</dd></dl>
+      <dl class="detail-card"><dt>Value-Added</dt><dd>SAS Certification</dd></dl>
+      <dl class="detail-card"><dt>Delivery Method</dt><dd>Conventional — lectures, presentations, supervised project work (face-to-face)</dd></dl>
+    </div>
+  </div>
+</section>
+
+<!-- PEO -->
+<section id="peo">
+  <div class="container">
+    <div class="section-label">Programme Educational Objectives</div>
+    <h2>What graduates will become</h2>
+    <div class="peo-grid">
+      <div class="peo-card">
+        <div class="peo-num">1</div>
+        <div class="peo-title">Applied Practitioners</div>
+        <div class="peo-desc">Provide solutions for domain-specific problems using appropriate AI knowledge and applied technical skills, aligned with industry requirements.</div>
+      </div>
+      <div class="peo-card">
+        <div class="peo-num">2</div>
+        <div class="peo-title">Effective Communicators</div>
+        <div class="peo-desc">Lead and interact effectively with a diverse range of stakeholders through strong interpersonal, leadership, and communication skills.</div>
+      </div>
+      <div class="peo-card">
+        <div class="peo-num">3</div>
+        <div class="peo-title">Lifelong Learners</div>
+        <div class="peo-desc">Pursue lifelong learning and demonstrate an entrepreneurial mindset to support ongoing personal and career development.</div>
+      </div>
+      <div class="peo-card">
+        <div class="peo-num">4</div>
+        <div class="peo-title">Ethical Professionals</div>
+        <div class="peo-desc">Uphold ethical conduct and professional integrity in their practice within their industry and society.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLO -->
+<section id="plo">
+  <div class="container">
+    <div class="section-label">Programme Learning Outcomes</div>
+    <h2>At graduation, students will be able to</h2>
+    <div class="plo-list">
+      <div class="plo-item"><div class="plo-num">1</div><div class="plo-text">Interpret concepts, principles, and theories of AI within a specific domain.</div><div class="plo-mqf">MQF 1</div></div>
+      <div class="plo-item"><div class="plo-num">2</div><div class="plo-text">Apply AI algorithms, models, and computational techniques to solve domain-specific problems.</div><div class="plo-mqf">MQF 2</div></div>
+      <div class="plo-item"><div class="plo-num">3</div><div class="plo-text">Integrate AI-based solutions using appropriate methods and techniques relevant to the domain.</div><div class="plo-mqf">MQF 3a</div></div>
+      <div class="plo-item"><div class="plo-num">4</div><div class="plo-text">Exhibit effective interaction with diverse stakeholders in various professional contexts.</div><div class="plo-mqf">MQF 3b</div></div>
+      <div class="plo-item"><div class="plo-num">5</div><div class="plo-text">Exhibit strong communication skills by engaging effectively with diverse stakeholders across various settings.</div><div class="plo-mqf">MQF 3c</div></div>
+      <div class="plo-item"><div class="plo-num">6</div><div class="plo-text">Utilise digital skills in addressing problems in the field of applied artificial intelligence.</div><div class="plo-mqf">MQF 3d</div></div>
+      <div class="plo-item"><div class="plo-num">7</div><div class="plo-text">Apply numeracy skills in solving problems related to the field of applied artificial intelligence.</div><div class="plo-mqf">MQF 3e</div></div>
+      <div class="plo-item"><div class="plo-num">8</div><div class="plo-text">Exhibit teamwork, accountability, autonomy, and responsibility in delivering AI solutions.</div><div class="plo-mqf">MQF 3f</div></div>
+      <div class="plo-item"><div class="plo-num">9</div><div class="plo-text">Exhibit personal skills and a commitment to expanding knowledge in applied AI.</div><div class="plo-mqf">MQF 4a</div></div>
+      <div class="plo-item"><div class="plo-num">10</div><div class="plo-text">Demonstrate an entrepreneurial mindset in the development and delivery of AI solutions.</div><div class="plo-mqf">MQF 4b</div></div>
+      <div class="plo-item"><div class="plo-num">11</div><div class="plo-text">Uphold professional and ethical standards in scholarly and professional AI activities.</div><div class="plo-mqf">MQF 5</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDY PLAN -->
+<section id="studyplan">
+  <div class="container">
+    <div class="section-label">3.5-year full time</div>
+    <h2>Study plan</h2>
+
+    <!-- Year 1 -->
+    <div class="year-block">
+      <div class="year-header"><span class="yr-badge">Year 1</span> Foundation in AI &amp; Computing</div>
+      <div class="sem-grid">
+        <div class="sem-block">
+          <div class="sem-head"><span>Semester 1</span><span class="cr">19 credits</span></div>
+          <div class="course-row"><span class="course-code">UHB 13102</span><span class="course-name">English for General Communication</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">UQ* 1***1</span><span class="course-name">Co-Curriculum I</span><span class="course-cr">1</span></div>
+          <div class="course-row"><span class="course-code">UQI 10102/202</span><span class="course-name">Islamic Studies / Moral Studies*</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">UQU 11202</span><span class="course-name">Integrity and Anti-Corruption</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">BIQ 10103</span><span class="course-name">Artificial Intelligence Programming</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 10203</span><span class="course-name">Computational Mathematics</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 10303</span><span class="course-name">Computer System</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 10403</span><span class="course-name">Introduction to Artificial Intelligence</span><span class="course-cr">3</span></div>
+        </div>
+        <div class="sem-block">
+          <div class="sem-head"><span>Semester 2</span><span class="cr">20 credits</span></div>
+          <div class="course-row"><span class="course-code">UQ* 1***1</span><span class="course-name">Co-Curriculum II</span><span class="course-cr">1</span></div>
+          <div class="course-row"><span class="course-code">UQI 1***2</span><span class="course-name">Philosophy and Current Challenges</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">UWB/UHB</span><span class="course-name">Foreign Language**</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">BIQ 10503</span><span class="course-name">Linear Algebra</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 10603</span><span class="course-name">Database</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 10703</span><span class="course-name">Data Engineering</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 10803</span><span class="course-name">Intelligent Search</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 10903</span><span class="course-name">Responsible AI and Ethics</span><span class="course-cr">3</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year 2 -->
+    <div class="year-block">
+      <div class="year-header"><span class="yr-badge">Year 2</span> Core AI Systems &amp; Applications</div>
+      <div class="sem-grid">
+        <div class="sem-block">
+          <div class="sem-head"><span>Semester 3</span><span class="cr">19 credits</span></div>
+          <div class="course-row"><span class="course-code">UHB 23102</span><span class="course-name">English for Technical Communication</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20102</span><span class="course-name">Technopreneurship</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">BIQ 11003</span><span class="course-name">Probability and Statistics</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20103</span><span class="course-name">Networking and Data Communication</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20203</span><span class="course-name">Data Analytics and Visualization</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20303</span><span class="course-name">Applied Machine Learning</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20403</span><span class="course-name">AI System Development</span><span class="course-cr">3</span></div>
+        </div>
+        <div class="sem-block">
+          <div class="sem-head"><span>Semester 4</span><span class="cr">19 credits</span></div>
+          <div class="course-row"><span class="course-code">UQU ***02</span><span class="course-name">National Aspiration and Nation-Building</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20202</span><span class="course-name">Creativity and Innovation</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20503</span><span class="course-name">Generative Artificial Intelligence</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20603</span><span class="course-name">AI Safety and Security</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20703</span><span class="course-name">AI Project Management</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20803</span><span class="course-name">Edge Artificial Intelligence</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 20903</span><span class="course-name">Business and Decision Intelligence</span><span class="course-cr">3</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year 3 -->
+    <div class="year-block">
+      <div class="year-header"><span class="yr-badge">Year 3</span> Advanced AI &amp; Final Year Project</div>
+      <div class="sem-grid">
+        <div class="sem-block">
+          <div class="sem-head"><span>Semester 5</span><span class="cr">19 credits</span></div>
+          <div class="course-row"><span class="course-code">UHB 33103</span><span class="course-name">English for Professional Communication</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">BIQ 21003</span><span class="course-name">Agentic Artificial Intelligence</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 30103</span><span class="course-name">AI Applications and Impact</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 30203</span><span class="course-name">AI Product Management</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 30102</span><span class="course-name">Final Year Project I</span><span class="course-cr">2</span></div>
+          <div class="course-row"><span class="course-code">BIQ 3***3</span><span class="course-name">Elective I</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 3***3</span><span class="course-name">Elective II</span><span class="course-cr">3</span></div>
+        </div>
+        <div class="sem-block">
+          <div class="sem-head"><span>Semester 6</span><span class="cr">16 credits</span></div>
+          <div class="course-row"><span class="course-code">BIQ 30104</span><span class="course-name">Final Year Project II</span><span class="course-cr">4</span></div>
+          <div class="course-row"><span class="course-code">BIQ 3***3</span><span class="course-name">Elective III</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 3***3</span><span class="course-name">Elective IV</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 3***3</span><span class="course-name">Elective V</span><span class="course-cr">3</span></div>
+          <div class="course-row"><span class="course-code">BIQ 3***3</span><span class="course-name">Elective VI</span><span class="course-cr">3</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year 4 -->
+    <div class="year-block">
+      <div class="year-header"><span class="yr-badge">Year 4</span> Industrial Training</div>
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:1.4rem 1.4rem;display:flex;align-items:center;gap:1.5rem;">
+        <div style="font-size:2.5rem;">🏢</div>
+        <div>
+          <div style="font-weight:600;color:var(--ink);margin-bottom:.3rem;">BIQ 40108 — Industrial Training</div>
+          <div style="font-size:.84rem;color:var(--mid);">Semester 7 · 8 Credits · Full semester placement in industry</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ELECTIVES -->
+<section id="electives">
+  <div class="container">
+    <div class="section-label">Choose 6 of 8</div>
+    <h2>Field electives</h2>
+    <p>Students choose six elective courses from the list below to tailor their specialisation.</p>
+    <div class="elective-grid">
+      <div class="elective-card"><div class="elec-icon">🌐</div><div><div class="elec-code">BIQ 30303</div><div class="elec-name">Artificial Intelligence of Things</div></div></div>
+      <div class="elective-card"><div class="elec-icon">🧠</div><div><div class="elec-code">BIQ 30403</div><div class="elec-name">Human-Centered Explainable AI</div></div></div>
+      <div class="elective-card"><div class="elec-icon">👁️</div><div><div class="elec-code">BIQ 30503</div><div class="elec-name">Computer Vision and Pattern Recognition</div></div></div>
+      <div class="elective-card"><div class="elec-icon">🌿</div><div><div class="elec-code">BIQ 30603</div><div class="elec-name">Nature-inspired Artificial Intelligence</div></div></div>
+      <div class="elective-card"><div class="elec-icon">📊</div><div><div class="elec-code">BIQ 30703</div><div class="elec-name">Data Science and Application</div></div></div>
+      <div class="elective-card"><div class="elec-icon">🔗</div><div><div class="elec-code">BIQ 30803</div><div class="elec-name">Deep Learning and Application</div></div></div>
+      <div class="elective-card"><div class="elec-icon">🤖</div><div><div class="elec-code">BIQ 30903</div><div class="elec-name">AI for Robotics Process Automation</div></div></div>
+      <div class="elective-card"><div class="elec-icon">🔮</div><div><div class="elec-code">BIQ 31003</div><div class="elec-name">Current Issues and Trends in AI</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSE LIST -->
+<section id="courses">
+  <div class="container">
+    <div class="section-label">Complete course list</div>
+    <h2>All courses</h2>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(event,'tab-univ')">University Compulsory</button>
+      <button class="tab-btn" onclick="switchTab(event,'tab-core')">Core Area</button>
+      <button class="tab-btn" onclick="switchTab(event,'tab-disc')">Discipline Core</button>
+      <button class="tab-btn" onclick="switchTab(event,'tab-other')">FYP &amp; Training</button>
+    </div>
+
+    <div id="tab-univ" class="tab-pane active">
+      <div class="course-table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Code</th><th>Course Name</th><th>Cr</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>UQI ***02</td><td>Philosophy and Current Challenges</td><td class="cr-cell">2</td></tr>
+            <tr><td>2</td><td>UQU ***02</td><td>National Aspiration and Nation-Building</td><td class="cr-cell">2</td></tr>
+            <tr><td>3</td><td>UQI 10102 / 10202</td><td>Islamic Studies / Moral Studies</td><td class="cr-cell">2</td></tr>
+            <tr><td>4</td><td>UQU 11202 / 11302</td><td>Integrity and Anti-Corruption (KIAR)</td><td class="cr-cell">2</td></tr>
+            <tr><td>5</td><td>UHB ****2</td><td>Foreign Language (International)</td><td class="cr-cell">2</td></tr>
+            <tr><td>6</td><td>UQ* 1***1</td><td>Co-Curriculum I</td><td class="cr-cell">1</td></tr>
+            <tr><td>7</td><td>UQ* 1***1</td><td>Co-Curriculum II</td><td class="cr-cell">1</td></tr>
+            <tr><td>8</td><td>BIQ 20102</td><td>Technopreneurship</td><td class="cr-cell">2</td></tr>
+            <tr><td>9</td><td>BIQ 20202</td><td>Creativity and Innovation</td><td class="cr-cell">2</td></tr>
+            <tr><td>10</td><td>UHB 13102</td><td>English for General Communication</td><td class="cr-cell">2</td></tr>
+            <tr><td>11</td><td>UHB 23102</td><td>English for Technical Communication</td><td class="cr-cell">2</td></tr>
+            <tr><td>12</td><td>UHB 33102</td><td>English for Professional Communication</td><td class="cr-cell">2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-core" class="tab-pane">
+      <div class="course-table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Code</th><th>Course Name</th><th>Cr</th></tr></thead>
+          <tbody>
+            <tr><td>13</td><td>BIQ 10103</td><td>Artificial Intelligence Programming</td><td class="cr-cell">3</td></tr>
+            <tr><td>14</td><td>BIQ 10303</td><td>Computer System</td><td class="cr-cell">3</td></tr>
+            <tr><td>15</td><td>BIQ 10403</td><td>Introduction to Artificial Intelligence</td><td class="cr-cell">3</td></tr>
+            <tr><td>16</td><td>BIQ 10503</td><td>Linear Algebra</td><td class="cr-cell">3</td></tr>
+            <tr><td>17</td><td>BIQ 10603</td><td>Database</td><td class="cr-cell">3</td></tr>
+            <tr><td>18</td><td>BIQ 10703</td><td>Data Engineering</td><td class="cr-cell">3</td></tr>
+            <tr><td>19</td><td>BIQ 10803</td><td>Intelligent Search</td><td class="cr-cell">3</td></tr>
+            <tr><td>20</td><td>BIQ 10903</td><td>Responsible AI and Ethics</td><td class="cr-cell">3</td></tr>
+            <tr><td>21</td><td>BIQ 11003</td><td>Probability and Statistics</td><td class="cr-cell">3</td></tr>
+            <tr><td>22</td><td>BIQ 20103</td><td>Data Communication and Networking</td><td class="cr-cell">3</td></tr>
+            <tr><td>23</td><td>BIQ 20403</td><td>AI System Development</td><td class="cr-cell">3</td></tr>
+            <tr><td>24</td><td>BIQ 20503</td><td>Generative Artificial Intelligence</td><td class="cr-cell">3</td></tr>
+            <tr><td>25</td><td>BIQ 20603</td><td>AI Safety and Security</td><td class="cr-cell">3</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-disc" class="tab-pane">
+      <div class="course-table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Code</th><th>Course Name</th><th>Cr</th></tr></thead>
+          <tbody>
+            <tr><td>26</td><td>BIQ 10203</td><td>Computational Mathematics</td><td class="cr-cell">3</td></tr>
+            <tr><td>27</td><td>BIQ 20203</td><td>Data Analytics and Visualization</td><td class="cr-cell">3</td></tr>
+            <tr><td>28</td><td>BIQ 20303</td><td>Applied Machine Learning</td><td class="cr-cell">3</td></tr>
+            <tr><td>29</td><td>BIQ 20703</td><td>AI Project Management</td><td class="cr-cell">3</td></tr>
+            <tr><td>30</td><td>BIQ 20803</td><td>Edge Artificial Intelligence</td><td class="cr-cell">3</td></tr>
+            <tr><td>31</td><td>BIQ 20903</td><td>Business and Decision Intelligence</td><td class="cr-cell">3</td></tr>
+            <tr><td>32</td><td>BIQ 21003</td><td>Agentic Artificial Intelligence</td><td class="cr-cell">3</td></tr>
+            <tr><td>33</td><td>BIQ 30203</td><td>AI Applications and Impact</td><td class="cr-cell">3</td></tr>
+            <tr><td>34</td><td>BIQ 30303</td><td>AI Product Management</td><td class="cr-cell">3</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-other" class="tab-pane">
+      <div class="course-table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Code</th><th>Course Name</th><th>Cr</th></tr></thead>
+          <tbody>
+            <tr><td>FYP</td><td>BIQ 30102</td><td>Final Year Project I</td><td class="cr-cell">2</td></tr>
+            <tr><td>FYP</td><td>BIQ 30104</td><td>Final Year Project II</td><td class="cr-cell">4</td></tr>
+            <tr><td>Training</td><td>BIQ 40108</td><td>Industrial Training</td><td class="cr-cell">8</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Credit Summary -->
+    <div style="margin-top:2rem;">
+      <div class="section-label" style="margin-bottom:.8rem;">Credit breakdown</div>
+      <div class="summary-grid">
+        <div class="summary-card"><div class="s-num">22</div><div class="s-pct">18.3%</div><div class="s-lbl">University Compulsory</div></div>
+        <div class="summary-card"><div class="s-num">39</div><div class="s-pct">32.5%</div><div class="s-lbl">Core Area</div></div>
+        <div class="summary-card"><div class="s-num">27</div><div class="s-pct">22.5%</div><div class="s-lbl">Knowledge Area</div></div>
+        <div class="summary-card"><div class="s-num">6</div><div class="s-pct">5.0%</div><div class="s-lbl">Final Year Project</div></div>
+        <div class="summary-card"><div class="s-num">8</div><div class="s-pct">6.7%</div><div class="s-lbl">Industrial Training</div></div>
+        <div class="summary-card"><div class="s-num">18</div><div class="s-pct">15.0%</div><div class="s-lbl">Field Electives</div></div>
+        <div class="summary-card" style="background:var(--ink);border-color:var(--ink);"><div class="s-num" style="color:white;">120</div><div class="s-pct" style="color:var(--accent2);">100%</div><div class="s-lbl" style="color:rgba(255,255,255,.55);">Total Credits</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTRY REQUIREMENTS -->
+<section id="entry">
+  <div class="container">
+    <div class="section-label">Admission</div>
+    <h2>Entry requirements</h2>
+    <p>Applicants must satisfy one of the following pathways AND hold a credit in Additional Mathematics at SPM level (or equivalent).</p>
+    <div class="entry-list">
+      <div class="entry-item"><div class="entry-roman">i</div><div class="entry-text">Pass in Matriculation or Foundation in Computing / Science, Technology and Engineering with a minimum CGPA of 2.00.</div></div>
+      <div class="entry-item"><div class="entry-roman">ii</div><div class="entry-text">Pass in STPM with a minimum Grade C (GP 2.00) in Mathematics and one Science / ICT subject.</div></div>
+      <div class="entry-item"><div class="entry-roman">iii</div><div class="entry-text">Diploma (MQF Level 4) in Artificial Intelligence / Computing with minimum CGPA 2.50. Candidates with CGPA 2.00–2.49 may be admitted subject to rigorous assessment.</div></div>
+      <div class="entry-item"><div class="entry-roman">iv</div><div class="entry-text">Diploma in a related Science, Technology or Engineering field (MQF Level 4) with minimum CGPA 2.75. Candidates with CGPA 2.50–2.74 may be admitted subject to rigorous assessment.</div></div>
+      <div class="entry-item"><div class="entry-roman">v</div><div class="entry-text">Diploma Kemahiran Malaysia (DKM) / Diploma Vokasional Malaysia (DVM) in related fields with CGPA 2.50–2.74, subject to rigorous assessment.</div></div>
+      <div class="entry-item"><div class="entry-roman">vi</div><div class="entry-text">Diploma Lanjutan Kemahiran Malaysia (DLKM) in related fields with CGPA 2.50–2.74, subject to rigorous assessment.</div></div>
+      <div class="entry-item"><div class="entry-roman">vii</div><div class="entry-text">Other relevant qualifications recognised by the Malaysian Government.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>Bachelor of Applied Artificial Intelligence with Honours (BIQ)</strong><br>
+  Faculty of Computer Science and Information Technology · Universiti Tun Hussein Onn Malaysia (UTHM)<br>
+  <span style="font-size:.72rem;margin-top:.4rem;display:block;">Programme Information Booklet 2026</span>
+</footer>
+
+<script>
+  function switchTab(e, id) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
